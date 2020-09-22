@@ -1,0 +1,12 @@
+version: '3'
+services:
+  videopersondetection:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./config:/opt/video-person-detection/config
+      - ./video_data:/opt/video-person-detection/video_data
+      - ./debug_output_data:/opt/video-person-detection/debug_output_data
+    devices:
+      - /dev/bus/usb:/dev/bus/usb

@@ -1,0 +1,40 @@
+# Number of frames to skip. Process only every n-th frame.
+skip_frames: 15
+
+# Minimum confidence threshold for the detected person to consider further processing.
+min_confidence_threshold: 0.1
+
+# A second inference run (with the cropped bounding box result) will be done if the first run 
+# is below the configured threshold (increase accurancy).
+second_run_threshold: 0.5
+
+# Skip further processing if confidence is high enough (do not waste cpu cycles).
+skip_further_processing_threshold: 0.9
+
+# Camera specific configuration. 
+# Key must match the request property value 'cameraId' (e.g. backyard, frontdoor).
+camera:
+  backyard:
+    # Inference result for a frame is ignored if the center of the bounding box for the 
+    # detected person is inside the defined zone contour. Coordinates to define the polygon 
+    # can be generated in your browser using https://www.image-map.net/. 
+    # The polygon must have at least three points. Property can be omitted if no zone should be ignored.
+    ignore_zone_coordinates: 280,115,141,241,309,300,445,138
+    # Minimum area (width * height) of the bounding box for the detected person.
+    min_area_threshold: 3700
+  frontdoor:
+    min_area_threshold: 3700
+
+# Base directory path containing the video files to analyze.
+# There is no need to change this if the provided dockerfile is used. Container volume can be
+# mounted to a different local directory (see docker-compose.yml).
+video_file_base_path: "/opt/video-person-detection/video_data/"
+
+# Application log level (DEBUG, INFO, WARN, ERROR or FATAL).
+log_level: DEBUG
+
+# Write each detected person frame to disk (for debugging purposes).
+debug_output_frames_enabled: False
+
+# Relative directory path for debug output.
+debug_output_path: "debug_output_data/"
